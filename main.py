@@ -8,3 +8,4 @@ wn.setup(400,400) #Größe
 wn.bgcolor("blue") #Farbe
 
 #Test Kommentar Nico
+#Test von Frau Jahn
