@@ -6,3 +6,5 @@ import math
 wn = turtle.Screen()
 wn.setup(400,400) #Größe
 wn.bgcolor("blue") #Farbe
+
+#Test Kommentar Nico
