@@ -11,4 +11,8 @@ wn.bgcolor("blue") #Farbe
 #Test von Frau Jahn
 #Test Gloria
 # Test Luca
+<<<<<<< HEAD
 #Test vno Jack Naujoks
+=======
+# Test Frau Jahn2
+>>>>>>> origin/main
