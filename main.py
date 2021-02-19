@@ -2,6 +2,10 @@
 import turtle
 import random
 import math
+from time import sleep
+
+# debugflag
+debug = True
 
 #-----------------------class Player------------------------
 class Platform( turtle.Turtle ): #Geerbt von Turtle
@@ -10,17 +14,17 @@ class Platform( turtle.Turtle ): #Geerbt von Turtle
     turtle.Turtle.__init__( self )
     self.penup()
     self.color( "white" )
-    self.draw()
     self.hideturtle()
-    self.position = ( 0, 0 )
+    self.position = [ 0, 0 ]
     self.sensitivity = 1
     self.speed(0)
+    self.isFrozen = False
 
   def draw( self ):
-    pass
+    if debug: print( self.position[ 0 ] )
   
   def setPotitionAndRefresh(self, x, y):
-    self.position = ( x, y )
+    self.position = [ x, y ]
     self.refresh()
 
   def refresh( self ):
@@ -28,30 +32,32 @@ class Platform( turtle.Turtle ): #Geerbt von Turtle
     self.draw()
 
   def moveR( self ):
-    self.position[ 0 ] += 1
-    self.refresh()
+    if not self.isFrozen:
+      self.position[ 0 ] += self.sensitivity
+      if debug: print( "move r" )
+      self.refresh()
   
   def moveL( self ):
-    self.position[ 0 ] -= 1
-    self.refresh()
+    if not self.isFrozen:
+      self.position[ 0 ] -= self.sensitivity
+      if debug: print( "move l" )
+      self.refresh()
 
-def main():
-  player = Platform()
-  player.draw()
-  
-  #Bildschirm
-  wn = turtle.Screen()
-  wn.setup(600, 500) #Größe
-  wn.bgcolor("black") #Farbe
 
-  wn.listen()
-  wn.onkey( player.moveL, "LEFT" )
-  wn.onkey( player.moveR, "RIGHT" )
+platform = Platform()
+platform.draw()
 
-  while True:
-    wn.update()
-    player.refresh()
+#Bildschirm
+field = turtle.Screen()
+field.setup(600, 500) #Größe
+field.bgcolor("black") #Farbe
 
-if __name__ == "__main__":
-  main()
+field.listen()
+field.onkey( platform.moveL, "LEFT" )
+field.onkey( platform.moveR, "RIGHT" )
+field.tracer( 0 )
+
+while True:
+    field.update()
+    sleep( 0.01 )
   
