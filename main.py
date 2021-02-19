@@ -4,7 +4,7 @@ import random
 import math
 from time import sleep
 
-# debugflag
+# debug flag
 debug = True
 
 #-----------------------class Player------------------------
@@ -32,32 +32,37 @@ class Platform( turtle.Turtle ): #Geerbt von Turtle
     self.draw()
 
   def moveR( self ):
-    if not self.isFrozen:
+    if not self.isFrozen and self.doesNotTouchBorder():
       self.position[ 0 ] += self.sensitivity
       if debug: print( "move r" )
       self.refresh()
   
   def moveL( self ):
-    if not self.isFrozen:
+    if not self.isFrozen and self.doesNotTouchBorder():
       self.position[ 0 ] -= self.sensitivity
       if debug: print( "move l" )
       self.refresh()
 
+  def doesNotTouchBorder( self ):
+    return True
 
-platform = Platform()
-platform.draw()
+def main():
+  platform = Platform()
+  platform.draw()
 
-#Bildschirm
-field = turtle.Screen()
-field.setup(600, 500) #Größe
-field.bgcolor("black") #Farbe
+  #Bildschirm
+  field = turtle.Screen()
+  field.setup(600, 500) #Größe
+  field.bgcolor("black") #Farbe
 
-field.listen()
-field.onkey( platform.moveL, "LEFT" )
-field.onkey( platform.moveR, "RIGHT" )
-field.tracer( 0 )
+  field.listen()
+  field.onkey( platform.moveL, "LEFT" )
+  field.onkey( platform.moveR, "RIGHT" )
+  field.tracer( 0 )
 
-while True:
-    field.update()
-    sleep( 0.01 )
+  while True:
+      field.update()
+      sleep( 0.01 )
   
+if __name__ == "__main__":
+  main()
