@@ -15,6 +15,7 @@ class Platform( turtle.Turtle ): #Geerbt von Turtle
     self.penup()
     self.color( "white" )
     self.hideturtle()
+
     self.position = [ 0, 0 ]
     self.sensitivity = 1
     self.speed(0)
@@ -22,8 +23,18 @@ class Platform( turtle.Turtle ): #Geerbt von Turtle
 
   def draw( self ):
     if debug: print( self.position[ 0 ] )
+    self.pd()
+    self.forward( 50 )
+    self.right( 90 )
+    self.forward( 10 )
+    self.right( 90 )
+    self.forward( 50 )
+    self.right( 90 )
+    self.forward( 10 )
+    self.right( 90 )
+    self.penup()
   
-  def setPotitionAndRefresh(self, x, y):
+  def setPotitionAndRefresh( self, x, y ):
     self.position = [ x, y ]
     self.refresh()
 
@@ -47,13 +58,13 @@ class Platform( turtle.Turtle ): #Geerbt von Turtle
     return True
 
 def main():
-  platform = Platform()
-  platform.draw()
-
   #Bildschirm
   field = turtle.Screen()
   field.setup(600, 500) #Größe
   field.bgcolor("black") #Farbe
+
+  platform = Platform()
+  platform.draw()
 
   field.listen()
   field.onkey( platform.moveL, "LEFT" )
