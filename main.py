@@ -23,7 +23,8 @@ class Platform( turtle.Turtle ): #Geerbt von Turtle
 
   def draw( self ):
     if debug: print( self.position[ 0 ] )
-    self.pd()
+    self.goto( self.position[ 0 ], self.position[ 1 ] )
+    self.pendown()
     self.forward( 50 )
     self.right( 90 )
     self.forward( 10 )
