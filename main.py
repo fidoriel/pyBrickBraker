@@ -7,7 +7,7 @@ from time import sleep
 # debug flag
 debug = True
 
-#-----------------------class Player------------------------
+#-----------------------class Platform------------------------
 class Platform( turtle.Turtle ): #Geerbt von Turtle
   #Konstruktor:
   def __init__( self ):
