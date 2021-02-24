@@ -16,23 +16,28 @@ class Platform( turtle.Turtle ): #Geerbt von Turtle
         self.color( "white" )
         self.hideturtle()
 
-        self.position = [ 0, 0 ]
-        self.sensitivity = 1
-        self.speed(0)
         self.isFrozen = False
+        self.width = 60
+
+        self.position = [ self.width/-2, -200 ]
+        # border L and R
+        self.maxLeft = -250
+        self.maxRight = 250
+        # speed
+        self.sensitivity = 10
+        self.speed(0)
 
     def draw( self ):
         if debug: print( self.position[ 0 ] )
         self.goto( self.position[ 0 ], self.position[ 1 ] )
         self.pendown()
-        self.forward( 50 )
-        self.right( 90 )
-        self.forward( 10 )
-        self.right( 90 )
-        self.forward( 50 )
-        self.right( 90 )
-        self.forward( 10 )
-        self.right( 90 )
+
+        for i in range( 2 ):
+          self.forward( self.width )
+          self.right( 90 )
+          self.forward( 10 )
+          self.right( 90 )
+
         self.penup()
 
     def setPotitionAndRefresh( self, x, y ):
@@ -44,12 +49,14 @@ class Platform( turtle.Turtle ): #Geerbt von Turtle
         self.draw()
 
     def moveR( self ):
+      if ( self.position[ 0 ] + self.width ) < self.maxRight:
         if not self.isFrozen and self.doesNotTouchBorder():
             self.position[ 0 ] += self.sensitivity
         if debug: print( "move r" )
         self.refresh()
 
     def moveL( self ):
+      if self.position[ 0 ] > self.maxLeft:
         if not self.isFrozen and self.doesNotTouchBorder():
             self.position[ 0 ] -= self.sensitivity
         if debug: print( "move l" )
