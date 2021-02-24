@@ -3,7 +3,6 @@ import turtle
 import random
 import math
 from time import sleep
-import platform as os
 
 # debug flag
 debug = True
@@ -69,13 +68,15 @@ def main():
     platform.draw()
 
     field.listen()
-    if os.system() == "Darwin":
-        field.onkey( platform.moveL, "Left" )
-        field.onkey( platform.moveR, "Right" )
 
-    else:
-        field.onkey( platform.moveL, "LEFT" )
-        field.onkey( platform.moveR, "RIGHT" )
+    # regular OS key codes
+    #field.onkey( platform.moveL, "Left" )
+    #field.onkey( platform.moveR, "Right" )
+
+    # python sculpt implementation KeyCodes
+    field.onkey( platform.moveL, "LEFT" )
+    field.onkey( platform.moveR, "RIGHT" )
+
     field.tracer( 0 )
 
     while True:
