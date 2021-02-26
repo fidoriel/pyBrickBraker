@@ -14,7 +14,7 @@ class Ball(turtle.Turtle): #Geerbt von Ball
         self.speed(1)
         self.color("white")
         self.shape("circle")
-        self.speed = 3 #zusätzliches Attribut
+        self.speed = 1 #zusätzliches Attribut
         self.setheading(random.randint(0,360))
 
     #Vor.: Der Ball befindet sich innerhalb des Spielfeldes.
@@ -24,8 +24,11 @@ class Ball(turtle.Turtle): #Geerbt von Ball
 
         if self.xcor() > 150 or self.xcor() < -150:
             self.left(60)
-        if self.ycor() < -150 or self.ycor() > 150:
+        if self.ycor() > 150:
             self.left(60)
+    
+    def objTouch( self ):
+        self.left(60)
 
 #-----------------------class Platform------------------------
 class Platform( turtle.Turtle ): #Geerbt von Turtle
@@ -84,6 +87,12 @@ class Platform( turtle.Turtle ): #Geerbt von Turtle
 
     def doesNotTouchBorder( self ):
         return True
+    
+    def collision( self, ball ):
+        if ball.ycor() <= self.ycor():
+            if self.xcor() <= ball.xcor() <= ( self.xcor() + self.width ):
+                if debug: print( "collision" )
+                ball.objTouch()
 
 def main():
     #Bildschirm
@@ -110,8 +119,8 @@ def main():
     while True:
         field.update()
         ball.move()
-        
-        sleep( 0.01 )
+        platform.collision( ball )
+        sleep( 0.001 )
   
 if __name__ == "__main__":
   main()
