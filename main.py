@@ -3,9 +3,28 @@ import turtle
 import random
 import math
 from time import sleep
-
-# debug flag
 debug = True
+
+class Ball(turtle.Turtle): #Geerbt von Ball
+    # Konstruktor:
+    def __init__(self):
+        turtle.Turtle.__init__(self)
+        self.penup()
+        self.speed(1)
+        self.color("white")
+        self.shape("circle")
+        self.speed = 3 #zusätzliches Attribut
+        self.setheading(random.randint(0,360))
+
+    #Vor.: Der Ball befindet sich innerhalb des Spielfeldes.
+    #Effekte: Der Ball wurde speed-Pixel in Blickrichtung vorwärts bewegt und ist an den Grenzen des Spielfeldes gedreht worden.
+    def move(self):
+        self.forward(self.speed)
+
+        if self.xcor() > 150 or self.xcor() < -150:
+            self.left(60)
+        if self.ycor() < -150 or self.ycor() > 150:
+            self.left(60)
 
 #-----------------------class Platform------------------------
 class Platform( turtle.Turtle ): #Geerbt von Turtle
@@ -70,6 +89,8 @@ def main():
     field = turtle.Screen()
     field.setup(600, 500) #Größe
     field.bgcolor("black") #Farbe
+    
+    ball = Ball()
 
     platform = Platform()
     platform.draw()
@@ -83,11 +104,12 @@ def main():
     # python sculpt implementation KeyCodes
     field.onkey( platform.moveL, "LEFT" )
     field.onkey( platform.moveR, "RIGHT" )
-
     field.tracer( 0 )
 
     while True:
         field.update()
+        ball.move()
+        
         sleep( 0.01 )
   
 if __name__ == "__main__":
