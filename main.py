@@ -5,6 +5,7 @@ import math
 from time import sleep
 debug = True
 
+#-----------------------class Ball------------------------
 class Ball(turtle.Turtle): #Geerbt von Ball
     # Konstruktor:
     def __init__(self):
