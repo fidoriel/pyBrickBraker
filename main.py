@@ -22,9 +22,9 @@ class Ball(turtle.Turtle): #Geerbt von Ball
     def move(self):
         self.forward(self.speed)
 
-        if self.xcor() > 150 or self.xcor() < -150:
+        if self.xcor() > 250 or self.xcor() < -250:
             self.left(60)
-        if self.ycor() > 150:
+        if self.ycor() > 250:
             self.left(60)
     
     def objTouch( self ):
@@ -40,9 +40,12 @@ class Brick(turtle.Turtle): #Geerbt von Turtle
         self.speed(0)
         self.color("white")
 
-        self.healthpoints = 3
+        self.healthpoints = 1
 
         self.position = [ x, y ]
+        # Breite x Laenge
+        self.size = [ 60, 30 ]
+        self.isDestroyed = False
 
     def draw( self ):
         if debug: print( self.position[ 0 ] )
@@ -50,12 +53,24 @@ class Brick(turtle.Turtle): #Geerbt von Turtle
         self.pendown()
 
         for i in range( 2 ):
-          self.forward( 60 )
+          self.forward( self.size[ 0 ] )
           self.right( 90 )
-          self.forward( 30 )
+          self.forward( self.size[ 1 ] )
           self.right( 90 )
 
         self.penup()
+    
+    def collision( self, ball ):
+        if not self.isDestroyed:
+            if self.ycor() <= ball.ycor() <= ( self.ycor() + self.size[ 1 ] ):
+                if self.xcor() <= ball.xcor() <= ( self.xcor() + self.size[ 0 ] ):
+                    if debug: print( "collision" )
+                    ball.objTouch()
+                    self.healthpoints -= 1
+                    if not self.healthpoints:
+                        self.clear()
+                        self.isDestroyed = True
+
 
 #-----------------------class Platform------------------------
 class Platform( turtle.Turtle ): #Geerbt von Turtle
@@ -143,13 +158,24 @@ def main():
     #field.onkey( platform.moveR, "RIGHT" )
     field.tracer( 0 )
 
-    brick = Brick( -100, 100 )
+    # brickXcount = 4
+    # brickYcount = 3
+
+    # bricks = [ [ None for x in range( brickXcount ) ] for y in range( brickYcount ) ]
+
+    # for y in range( brickXcount ):
+    #     for x in range( brickYcount ):
+    #         brick = 
+
+    brick = Brick( 0, 0 )
     brick.draw()
+
 
     while True:
         field.update()
         ball.move()
         platform.collision( ball )
+        brick.collision( ball )
         sleep( 0.001 )
   
 if __name__ == "__main__":
