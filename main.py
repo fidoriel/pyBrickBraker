@@ -29,6 +29,8 @@ class Ball(turtle.Turtle): #Geerbt von Ball
         if self.ycor() > 250:
             self.left(60)
     
+    #Vor.: Keine
+    #Effekte: Drehe um 60 grad nach links.
     def objTouch( self ):
         self.left(60)
 
@@ -95,6 +97,8 @@ class Platform( turtle.Turtle ): #Geerbt von Turtle
         self.sensitivity = 50
         self.speed(0)
 
+    #Vor.: Keine
+    #Effekte: Die Plattform wird gezeichnet.
     def draw( self ):
         if debug: print( self.position[ 0 ] )
         self.goto( self.position[ 0 ], self.position[ 1 ] )
@@ -108,14 +112,20 @@ class Platform( turtle.Turtle ): #Geerbt von Turtle
 
         self.penup()
 
+    #Vor.: Keine
+    #Effekte: Die Position wird geändert und die Plattform wird aktualisiert
     def setPotitionAndRefresh( self, x, y ):
         self.position = [ x, y ]
         self.refresh()
 
+    #Vor.: setPotitionAndRefresh wurde ausgeführt
+    #Effekte: Die Plattform wird entfernt und neu gezeichnet
     def refresh( self ):
         self.clear()
         self.draw()
 
+    #Vor.: Keine
+    #Effekte: Die Plattform bewegt sich nach rechts
     def moveR( self ):
       if ( self.position[ 0 ] + self.width ) < self.maxRight:
         if not self.isFrozen and self.doesNotTouchBorder():
@@ -123,6 +133,8 @@ class Platform( turtle.Turtle ): #Geerbt von Turtle
         if debug: print( "move r" )
         self.refresh()
 
+    #Vor.: Keine
+    #Effekte: Die Plattform bewegt sich nach links
     def moveL( self ):
       if self.position[ 0 ] > self.maxLeft:
         if not self.isFrozen and self.doesNotTouchBorder():
@@ -130,9 +142,13 @@ class Platform( turtle.Turtle ): #Geerbt von Turtle
         if debug: print( "move l" )
         self.refresh()
 
+    #Vor.: Berührt die Grenze
+    #Effekte: Gebe True aus
     def doesNotTouchBorder( self ):
         return True
     
+    #Vor.: Keine
+    #Effekte: Teste ob der Ball und die Plattform sich berühren
     def collision( self, ball ):
         if ball.ycor() <= self.ycor():
             if self.xcor() <= ball.xcor() <= ( self.xcor() + self.width ):
