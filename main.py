@@ -15,6 +15,7 @@ class Ball(turtle.Turtle): #Geerbt von Ball
         self.color("white")
         self.shape("circle")
         self.speed = 0.3 #zusätzliches Attribut
+        self.goto( 0, 100 )
         self.setheading(random.randint(0,360))
 
     #Vor.: Der Ball befindet sich innerhalb des Spielfeldes.
@@ -67,6 +68,7 @@ class Brick(turtle.Turtle): #Geerbt von Turtle
                     if debug: print( "collision" )
                     ball.objTouch()
                     self.healthpoints -= 1
+                    if debug: print( self.healthpoints )
                     if not self.healthpoints:
                         self.clear()
                         self.isDestroyed = True
