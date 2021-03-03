@@ -30,6 +30,33 @@ class Ball(turtle.Turtle): #Geerbt von Ball
     def objTouch( self ):
         self.left(60)
 
+#-----------------------class Brick------------------------
+class Brick(turtle.Turtle): #Geerbt von Turtle
+    # Konstruktor:
+    def __init__( self, x, y ):
+        turtle.Turtle.__init__( self,  )
+        self.hideturtle()
+        self.penup()
+        self.speed(0)
+        self.color("white")
+
+        self.healthpoints = 3
+
+        self.position = [ x, y ]
+
+    def draw( self ):
+        if debug: print( self.position[ 0 ] )
+        self.goto( self.position[ 0 ], self.position[ 1 ] )
+        self.pendown()
+
+        for i in range( 2 ):
+          self.forward( 60 )
+          self.right( 90 )
+          self.forward( 30 )
+          self.right( 90 )
+
+        self.penup()
+
 #-----------------------class Platform------------------------
 class Platform( turtle.Turtle ): #Geerbt von Turtle
     #Konstruktor:
@@ -108,13 +135,16 @@ def main():
     field.listen()
 
     # regular OS key codes
-    #field.onkey( platform.moveL, "Left" )
-    #field.onkey( platform.moveR, "Right" )
+    field.onkey( platform.moveL, "Left" )
+    field.onkey( platform.moveR, "Right" )
 
     # python sculpt implementation KeyCodes
-    field.onkey( platform.moveL, "LEFT" )
-    field.onkey( platform.moveR, "RIGHT" )
+    #field.onkey( platform.moveL, "LEFT" )
+    #field.onkey( platform.moveR, "RIGHT" )
     field.tracer( 0 )
+
+    brick = Brick( -100, 100 )
+    brick.draw()
 
     while True:
         field.update()
