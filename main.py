@@ -14,7 +14,7 @@ class Ball(turtle.Turtle): #Geerbt von Ball
         self.speed(1)
         self.color("white")
         self.shape("circle")
-        self.speed = 1 #zusätzliches Attribut
+        self.speed = 0.3 #zusätzliches Attribut
         self.setheading(random.randint(0,360))
 
     #Vor.: Der Ball befindet sich innerhalb des Spielfeldes.
@@ -40,14 +40,14 @@ class Platform( turtle.Turtle ): #Geerbt von Turtle
         self.hideturtle()
 
         self.isFrozen = False
-        self.width = 60
+        self.width = 100
 
         self.position = [ self.width/-2, -200 ]
         # border L and R
         self.maxLeft = -250
         self.maxRight = 250
         # speed
-        self.sensitivity = 10
+        self.sensitivity = 50
         self.speed(0)
 
     def draw( self ):
