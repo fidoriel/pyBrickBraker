@@ -65,17 +65,23 @@ class Brick(turtle.Turtle): #Geerbt von Turtle
         self.penup()
     
     def collision( self, ball ):
+        stretch_wid, stretch_len, outlinewidth = ball.turtlesize()
+        dist = 10 * stretch_len
         if not self.isDestroyed:
-            if self.ycor() <= ball.ycor() <= ( self.ycor() + self.size[ 1 ] ):
-                if self.xcor() <= ball.xcor() <= ( self.xcor() + self.size[ 0 ] ):
-                    if debug: print( "collision" )
+            if self.ycor() <=  ( ball.ycor() - dist ) <= ( self.ycor() + self.size[ 1 ] ) or self.ycor() <=  ( ball.ycor() + dist ) <= ( self.ycor() + self.size[ 1 ] ):
+                if self.xcor() <= ( ball.xcor() - dist ) <= ( self.xcor() + self.size[ 0 ] ) or self.xcor() <= ( ball.xcor() + dist ) <= ( self.xcor() + self.size[ 0 ] ):
+
+                    if debug:
+                        print( "collision" )
+                        print( ball.xcor(), ball.ycor() )
+                        print( ball.shapesize() )
+
                     ball.objTouch()
                     self.healthpoints -= 1
                     if debug: print( self.healthpoints )
                     if not self.healthpoints:
                         self.clear()
                         self.isDestroyed = True
-
 
 #-----------------------class Platform------------------------
 class Platform( turtle.Turtle ): #Geerbt von Turtle
@@ -150,8 +156,10 @@ class Platform( turtle.Turtle ): #Geerbt von Turtle
     #Vor.: Keine
     #Effekte: Teste ob der Ball und die Plattform sich berühren
     def collision( self, ball ):
-        if ball.ycor() <= self.ycor():
-            if self.xcor() <= ball.xcor() <= ( self.xcor() + self.width ):
+        stretch_wid, stretch_len, outlinewidth = ball.turtlesize()
+        dist = 10 * stretch_len
+        if ( ball.ycor() - dist ) <= self.ycor() or ( ball.ycor() + dist ) <= self.ycor():
+            if self.xcor() <= ( ball.xcor() - dist ) <= ( self.xcor() + self.width ) or self.xcor() <= ( ball.xcor() + dist ) <= ( self.xcor() + self.width ):
                 if debug: print( "collision" )
                 ball.objTouch()
 
@@ -198,4 +206,4 @@ def main():
         sleep( 0.001 )
   
 if __name__ == "__main__":
-  main()
+    main()
