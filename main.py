@@ -14,7 +14,7 @@ class Border(turtle.Turtle): #Geerbt von Turtle
         turtle.Turtle.__init__(self)
         self.penup()
         self.hideturtle()
-        self.speed(12)
+        self.speed(0)
         self.color("white")
         self.pensize(2)
     
