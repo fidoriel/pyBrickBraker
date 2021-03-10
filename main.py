@@ -65,8 +65,8 @@ class Brick(turtle.Turtle): #Geerbt von Turtle
         self.penup()
     
     def collision( self, ball ):
-        stretch_wid, stretch_len, outlinewidth = ball.turtlesize()
-        dist = 10 * stretch_len
+        #stretch_wid, stretch_len, outlinewidth = ball.turtlesize()
+        dist = 10 #* stretch_len
         if not self.isDestroyed:
             if self.ycor() <=  ( ball.ycor() - dist ) <= ( self.ycor() + self.size[ 1 ] ) or self.ycor() <=  ( ball.ycor() + dist ) <= ( self.ycor() + self.size[ 1 ] ):
                 if self.xcor() <= ( ball.xcor() - dist ) <= ( self.xcor() + self.size[ 0 ] ) or self.xcor() <= ( ball.xcor() + dist ) <= ( self.xcor() + self.size[ 0 ] ):
@@ -156,8 +156,8 @@ class Platform( turtle.Turtle ): #Geerbt von Turtle
     #Vor.: Keine
     #Effekte: Teste ob der Ball und die Plattform sich berühren
     def collision( self, ball ):
-        stretch_wid, stretch_len, outlinewidth = ball.turtlesize()
-        dist = 10 * stretch_len
+        #stretch_wid, stretch_len, outlinewidth = ball.turtlesize()
+        dist = 10# * stretch_len
         if ( ball.ycor() - dist ) <= self.ycor() or ( ball.ycor() + dist ) <= self.ycor():
             if self.xcor() <= ( ball.xcor() - dist ) <= ( self.xcor() + self.width ) or self.xcor() <= ( ball.xcor() + dist ) <= ( self.xcor() + self.width ):
                 if debug: print( "collision" )
