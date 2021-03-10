@@ -83,6 +83,32 @@ class Brick(turtle.Turtle): #Geerbt von Turtle
                         self.clear()
                         self.isDestroyed = True
 
+#-----------------------class Border------------------------
+class Border(turtle.Turtle): #Geerbt von Turtle
+    def __init__(self, leftBorder, rightBorder, topBorder, bottomBorder):
+        #Konstruktor:
+        turtle.Turtle.__init__(self)
+        self.penup()
+        self.hideturtle()
+        self.speed(0)
+        self.color("white")
+        self.pensize(2)
+        self.leftBorder = leftBorder #-180
+        self.rightBorder = rightBorder #180
+        self.topBorder = topBorder #180
+        self.bottomBorder = bottomBorder #-200
+    
+    #Vor.: keine
+    #Effekte: Die Spielfeldgrenze ist gezeichnet.
+    def draw(self):
+        self.penup()
+        self.goto(self.leftBorder,self.bottomBorder)
+        self.goto(self.rightBorder,self.bottomBorder)
+        self.pendown()
+        self.goto(self.rightBorder,self.topBorder)
+        self.goto(self.leftBorder,self.topBorder)
+        self.goto(self.leftBorder,self.bottomBorder)
+
 #-----------------------class Platform------------------------
 class Platform( turtle.Turtle ): #Geerbt von Turtle
     #Konstruktor:
@@ -170,6 +196,9 @@ def main():
     field.bgcolor("black") #Farbe
     
     ball = Ball()
+
+    border = Border(-250, 250, 250, -250)
+    border.draw()
 
     platform = Platform()
     platform.draw()
