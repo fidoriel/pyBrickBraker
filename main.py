@@ -65,7 +65,7 @@ class Brick(turtle.Turtle): #Geerbt von Turtle
         self.penup()
     
     def collision( self, ball ):
-        #stretch_wid, stretch_len, outlinewidth = ball.shapesize()
+        #stretch_wid, stretch_len, outlinewidth = ball.turtlesize()
         dist = 10 #* stretch_len
         if not self.isDestroyed:
             if self.ycor() <=  ( ball.ycor() - dist ) <= ( self.ycor() + self.size[ 1 ] ) or self.ycor() <=  ( ball.ycor() + dist ) <= ( self.ycor() + self.size[ 1 ] ):
