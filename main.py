@@ -14,7 +14,7 @@ class Border(turtle.Turtle): #Geerbt von Turtle
         turtle.Turtle.__init__(self)
         self.penup()
         self.hideturtle()
-        self.speed(0)
+        self.speed(12)
         self.color("white")
         self.pensize(2)
     
@@ -22,12 +22,12 @@ class Border(turtle.Turtle): #Geerbt von Turtle
     #Effekte: Die Spielfeldgrenze ist gezeichnet.
     def draw(self):
         self.penup()
-        self.goto(-150,-150)
+        self.goto(-180,-200)
+        self.goto(180,-200)
         self.pendown()
-        self.goto(150,-150)
-        self.goto(150,150)
-        self.goto(-150,150)
-        self.goto(-150,-150)
+        self.goto(180,180)
+        self.goto(-180,180)
+        self.goto(-180,-200)
 
 border = Border()
 border.draw()
