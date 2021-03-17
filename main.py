@@ -74,7 +74,7 @@ class Brick(turtle.Turtle): #Geerbt von Turtle
                     if debug:
                         print( "collision" )
                         print( ball.xcor(), ball.ycor() )
-                        print( ball.shapesize() )
+                       # print( ball.shapesize() )
 
                     ball.objTouch()
                     self.healthpoints -= 1
@@ -209,10 +209,11 @@ class Score(turtle.Turtle): #Geerbt von Turtle
         
         self.write((self.score), align = "center", font = ("impact", 12, "normal"))
 
-
+    #Vor.: keine
+    #Effekte: Fügt dem Score 10 hinzu und zeichnet ihn neu
     def update(self):
         self.clear
-        
+        self.score = self.score + 10
         self.draw()
 
 def main():
