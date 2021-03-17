@@ -42,6 +42,7 @@ class Brick(turtle.Turtle): #Geerbt von Turtle
         self.hideturtle()
         self.penup()
         self.speed(0)
+        self.points = 0
         self.color("white")
 
         self.healthpoints = 1
@@ -64,6 +65,7 @@ class Brick(turtle.Turtle): #Geerbt von Turtle
 
         self.penup()
     
+
     def collision( self, ball ):
         #stretch_wid, stretch_len, outlinewidth = ball.turtlesize()
         dist = 10 #* stretch_len
@@ -82,6 +84,7 @@ class Brick(turtle.Turtle): #Geerbt von Turtle
                     if not self.healthpoints:
                         self.clear()
                         self.isDestroyed = True
+                        self.points = self.points + 10
 
 #-----------------------class Border------------------------
 class Border(turtle.Turtle): #Geerbt von Turtle
@@ -191,7 +194,7 @@ class Platform( turtle.Turtle ): #Geerbt von Turtle
 
 #-----------------------class Score------------------------
 class Score(turtle.Turtle): #Geerbt von Turtle
-    def __init__(self, height):
+    def __init__(self, height, score):
         #Konstruktor:
         turtle.Turtle.__init__(self)
         self.penup()
@@ -199,12 +202,13 @@ class Score(turtle.Turtle): #Geerbt von Turtle
         self.speed(0)
         self.color("white")
         self.pensize(5)
-        self.score = 0
+        self.score = score
         self.height = height
     #Vor.: keine
     #Effekte: Die Spielfeldgrenze ist gezeichnet.
     def draw(self):
         self.penup()
+        self.clear
         self.goto(0,self.height)
         
         self.write((self.score), align = "center", font = ("impact", 12, "normal"))
@@ -245,8 +249,9 @@ def main():
 
     brick = Brick( 0, 0 )
     brick.draw()
-    
-    score = Score(185)
+
+
+    score = Score(185, brick.points)
     score.draw()
 
     while True:
