@@ -189,6 +189,26 @@ class Platform( turtle.Turtle ): #Geerbt von Turtle
                 if debug: print( "collision" )
                 ball.objTouch()
 
+#-----------------------class Score------------------------
+class Score(turtle.Turtle): #Geerbt von Turtle
+    def __init__(self, height):
+        #Konstruktor:
+        turtle.Turtle.__init__(self)
+        self.penup()
+        self.hideturtle()
+        self.speed(0)
+        self.color("white")
+        self.pensize(5)
+        self.score = 0
+        self.height = height
+    #Vor.: keine
+    #Effekte: Die Spielfeldgrenze ist gezeichnet.
+    def draw(self):
+        self.penup()
+        self.goto(0,self.height)
+        
+        self.write((self.score), align = "center", font = ("impact", 12, "normal"))
+
 def main():
     #Bildschirm
     field = turtle.Screen()
