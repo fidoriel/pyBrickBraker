@@ -67,6 +67,8 @@ class Brick(turtle.Turtle): #Geerbt von Turtle
 
         self.penup()
     
+    #Vor.: Keine
+    #Effekte: Teste ob der Ball den Brick Berührt
     def collision( self, ball ):
         #stretch_wid, stretch_len, outlinewidth = ball.turtlesize()
         dist = 10 #* stretch_len
@@ -191,7 +193,7 @@ class Platform( turtle.Turtle ): #Geerbt von Turtle
             if self.xcor() <= ( ball.xcor() - dist ) <= ( self.xcor() + self.width ) or self.xcor() <= ( ball.xcor() + dist ) <= ( self.xcor() + self.width ):
                 if debug: print( "collision" )
                 ball.objTouch()
-
+#Main Methode
 def main():
     #Bildschirm
     field = turtle.Screen()
@@ -236,6 +238,6 @@ def main():
         platform.collision( ball )
         brick.collision( ball )
         sleep( 0.001 )
-  
+#Führe Main Methode   
 if __name__ == "__main__":
     main()
