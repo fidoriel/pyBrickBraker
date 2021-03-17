@@ -15,7 +15,7 @@ class Ball(turtle.Turtle): #Geerbt von Ball
         self.speed(1)
         self.color("white")
         self.shape("circle")
-        self.speed = 0.5 #zusätzliches Attribut
+        self.speed = 5 #zusätzliches Attribut
         self.goto( 0, 100 )
         self.setheading(random.randint(0,360))
 
@@ -213,9 +213,9 @@ class Score(turtle.Turtle): #Geerbt von Turtle
 
     #Vor.: keine
     #Effekte: Fügt dem Score 10 hinzu und zeichnet ihn neu
-    def update(self):
-        self.clear
-        self.score = self.score + 10
+    def update(self,points):
+        self.clear()
+        self.score += points
         self.draw()
 
 def main():
@@ -262,11 +262,10 @@ def main():
         field.update()
         ball.move()
         platform.collision( ball )
-        brick.collision( ball )
         sleep( 0.001 )
 
         if brick.collision( ball ) == True:
-          score.update()
+          score.update(1000)
 
   
 if __name__ == "__main__":
