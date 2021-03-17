@@ -245,7 +245,9 @@ def main():
 
     brick = Brick( 0, 0 )
     brick.draw()
-
+    
+    score = Score(185)
+    score.draw()
 
     while True:
         field.update()
