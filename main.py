@@ -15,7 +15,7 @@ class Ball(turtle.Turtle): #Geerbt von Ball
         self.speed(1)
         self.color("white")
         self.shape("circle")
-        self.speed = 0.3 #zusätzliches Attribut
+        self.speed = 0.5 #zusätzliches Attribut
         self.goto( 0, 100 )
         self.setheading(random.randint(0,360))
 
@@ -69,7 +69,7 @@ class Brick(turtle.Turtle): #Geerbt von Turtle
         dist = 10 #* stretch_len
         if not self.isDestroyed:
             if self.ycor() <=  ( ball.ycor() - dist ) <= ( self.ycor() + self.size[ 1 ] ) or self.ycor() <=  ( ball.ycor() + dist ) <= ( self.ycor() + self.size[ 1 ] ):
-                if self.xcor() <= ( ball.xcor() - dist ) <= ( self.xcor() + self.size[ 0 ] ) or self.xcor() <= ( ball.xcor() + dist ) <= ( self.xcor() + self.size[ 0 ] ):
+                if self.xcor() <= ( ball.xcor() - dist ) <= ( self.xcor() + self.size[ 0 ] ) or self.xcor() <= ( ball.xcor() + dist ) <= ( self.xcor() + self.size[ 0 ] ): 
 
                     if debug:
                         print( "collision" )
@@ -82,6 +82,8 @@ class Brick(turtle.Turtle): #Geerbt von Turtle
                     if not self.healthpoints:
                         self.clear()
                         self.isDestroyed = True
+                        return True
+
 
 #-----------------------class Border------------------------
 class Border(turtle.Turtle): #Geerbt von Turtle
@@ -262,6 +264,10 @@ def main():
         platform.collision( ball )
         brick.collision( ball )
         sleep( 0.001 )
+
+        if brick.collision( ball ) == True:
+          score.update()
+
   
 if __name__ == "__main__":
     main()
