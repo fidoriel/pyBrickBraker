@@ -50,7 +50,10 @@ class Brick(turtle.Turtle): #Geerbt von Turtle
         # Breite x Laenge
         self.size = [ 60, 30 ]
         self.isDestroyed = False
+    
 
+    #Vor.: Keine
+    #Effekte: Zeichne den Brick
     def draw( self ):
         if debug: print( self.position[ 0 ] )
         self.goto( self.position[ 0 ], self.position[ 1 ] )
