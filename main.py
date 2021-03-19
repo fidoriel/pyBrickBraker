@@ -15,7 +15,7 @@ class Ball(turtle.Turtle): #Geerbt von Ball
         self.speed(1)
         self.color("white")
         self.shape("circle")
-        self.speed = .5 #zusätzliches Attribut
+        self.speed = 0.5 #zusätzliches Attribut
         self.goto( 0, 100 )
         self.setheading(random.randint(0,360))
 
