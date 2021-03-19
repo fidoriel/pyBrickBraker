@@ -238,6 +238,6 @@ def main():
         platform.collision( ball )
         brick.collision( ball )
         sleep( 0.001 )
-#Führe Main Methode   
+#Führe Main Methode aus  
 if __name__ == "__main__":
     main()
