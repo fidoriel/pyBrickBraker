@@ -15,7 +15,7 @@ class Ball(turtle.Turtle): #Geerbt von Ball
         self.speed(1)
         self.color("white")
         self.shape("circle")
-        self.speed = .5 #zusätzliches Attribut
+        self.speed = 1 #zusätzliches Attribut
         self.goto( 0, 100 )
         self.setheading(random.randint(0,360))
 
@@ -83,7 +83,7 @@ class Brick(turtle.Turtle): #Geerbt von Turtle
                         self.clear()
                         self.isDestroyed = True
                         return True
-
+        return False
 
 #-----------------------class Border------------------------
 class Border(turtle.Turtle): #Geerbt von Turtle
@@ -110,6 +110,15 @@ class Border(turtle.Turtle): #Geerbt von Turtle
         self.goto(self.rightBorder,self.topBorder)
         self.goto(self.leftBorder,self.topBorder)
         self.goto(self.leftBorder,self.bottomBorder)
+    
+    #Vor.: keine
+    #Effekte: Wenn der Ball unter der Plattform ist, ist er in die Mitte des Spielfeldes gesetzt.
+    def collision( self, ball ):
+        #stretch_wid, stretch_len, outlinewidth = ball.turtlesize()
+        dist = 10# * stretch_len
+        if ball.ycor() <= -220:
+            if debug: print( "fallout" )
+            ball.goto( 0, 0 )
 
 #-----------------------class Platform------------------------
 class Platform( turtle.Turtle ): #Geerbt von Turtle
@@ -262,10 +271,12 @@ def main():
         field.update()
         ball.move()
         platform.collision( ball )
-        sleep( 0.001 )
+        border.collision( ball )
 
         if brick.collision( ball ) == True:
-          score.update(1000)
+            score.update(1000)
+        
+        sleep( 0.001 )
 
   
 if __name__ == "__main__":
