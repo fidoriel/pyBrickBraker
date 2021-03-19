@@ -51,6 +51,8 @@ class Brick(turtle.Turtle): #Geerbt von Turtle
         self.size = [ 60, 30 ]
         self.isDestroyed = False
 
+    #Vor.: keine
+    #Effekte: Der Brick ist an der Position self.position gezeichent.
     def draw( self ):
         if debug: print( self.position[ 0 ] )
         self.goto( self.position[ 0 ], self.position[ 1 ] )
@@ -64,6 +66,8 @@ class Brick(turtle.Turtle): #Geerbt von Turtle
 
         self.penup()
     
+    #Vor.: keine
+    #Effekte: Wenn der Ball den Brick berührt hat, ist der Brick nicht mehr sichtbar.
     def collision( self, ball ):
         #stretch_wid, stretch_len, outlinewidth = ball.turtlesize()
         dist = 10 #* stretch_len
