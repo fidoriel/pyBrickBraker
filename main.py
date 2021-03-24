@@ -15,7 +15,7 @@ class Ball(turtle.Turtle): #Geerbt von Ball
         self.speed(1)
         self.color("white")
         self.shape("circle")
-        self.speed = 1 #zusätzliches Attribut
+        self.speed = 3 #zusätzliches Attribut
         self.goto( 0, 100 )
         self.setheading(random.randint(0,360))
 
@@ -23,16 +23,11 @@ class Ball(turtle.Turtle): #Geerbt von Ball
     #Effekte: Der Ball wurde speed-Pixel in Blickrichtung vorwärts bewegt und ist an den Grenzen des Spielfeldes gedreht worden.
     def move(self):
         self.forward(self.speed)
-
-        if self.xcor() > 250 or self.xcor() < -250:
-            self.left(60)
-        if self.ycor() > 250:
-            self.left(60)
     
     #Vor.: Keine
     #Effekte: Drehe um 60 grad nach links.
     def objTouch( self ):
-        self.left(60)
+        self.left( random.randint( 50, 70 ) )
 
 #-----------------------class Brick------------------------
 class Brick(turtle.Turtle): #Geerbt von Turtle
@@ -120,14 +115,20 @@ class Border(turtle.Turtle): #Geerbt von Turtle
     def collision( self, ball ):
         #stretch_wid, stretch_len, outlinewidth = ball.turtlesize()
         dist = 10# * stretch_len
-        if ball.ycor() <= -220:
+        if ball.ycor() <= self.bottomBorder + 30:
             if debug: print( "fallout" )
             ball.goto( 0, 0 )
+        
+        elif ball.xcor() < self.leftBorder or ball.xcor() > self.rightBorder:
+            ball.objTouch()
+
+        elif ball.ycor() > self.topBorder:
+            ball.objTouch()
 
 #-----------------------class Platform------------------------
 class Platform( turtle.Turtle ): #Geerbt von Turtle
     #Konstruktor:
-    def __init__( self ):
+    def __init__( self, borders ):
         turtle.Turtle.__init__( self )
         self.penup()
         self.color( "white" )
@@ -138,8 +139,8 @@ class Platform( turtle.Turtle ): #Geerbt von Turtle
 
         self.position = [ self.width/-2, -200 ]
         # border L and R
-        self.maxLeft = -250
-        self.maxRight = 250
+        self.maxLeft = borders * -1
+        self.maxRight = borders
         # speed
         self.sensitivity = 50
         self.speed(0)
@@ -213,7 +214,7 @@ class Score(turtle.Turtle): #Geerbt von Turtle
         self.hideturtle()
         self.speed(0)
         self.color("white")
-        self.pensize(5)
+        self.pensize( 10 )
         self.score = 0
         self.height = height
     #Vor.: keine
@@ -222,7 +223,7 @@ class Score(turtle.Turtle): #Geerbt von Turtle
         self.penup()
         self.goto(0,self.height)
         
-        self.write((self.score), align = "center", font = ("impact", 12, "normal"))
+        self.write((self.score), align = "center", font = ("impact", 30, "normal"))
 
     #Vor.: keine
     #Effekte: Fügt dem Score 10 hinzu und zeichnet ihn neu
@@ -237,37 +238,39 @@ class Bricks():
     def __init__( self, rows, cols ):
         self.bricksList = [ [ ] for _ in range( rows ) ]
 
-        x = -220
+        y = 230
         for row in range( rows ):
-            y = 220
+            x = -205
             for col in range( cols ):
                 self.bricksList[ row ].append( Brick( x, y ) )
-                y -= 80
-            x += 100
+                x += 70
+            y -= 40
         
         self.draw()
 
     def draw( self ):
-
         for row in self.bricksList:
             for brick in row:
                 brick.draw()
 
-    def collision( self ):
-        pass
+    def collision( self, ball, score ):
+        for row in self.bricksList:
+            for brick in row:
+                if brick.collision( ball ) == True:
+                    score.update(100)
 
 def main():
     #Bildschirm
     field = turtle.Screen()
-    field.setup(600, 500) #Größe
+    field.setup(800, 800) #Größe
     field.bgcolor("black") #Farbe
     
     ball = Ball()
 
-    border = Border(-250, 250, 250, -250)
+    border = Border(-300, 300, 300, -300)
     border.draw()
 
-    platform = Platform()
+    platform = Platform( 300 )
     platform.draw()
 
     field.listen()
@@ -281,9 +284,9 @@ def main():
     #field.onkey( platform.moveR, "RIGHT" )
     field.tracer( 0 )
 
-    bricks = Bricks( 4, 3 )
+    bricks = Bricks( 4, 6 )
     
-    score = Score(185)
+    score = Score( 330 )
     score.draw()
 
     while True:
@@ -291,9 +294,7 @@ def main():
         ball.move()
         platform.collision( ball )
         border.collision( ball )
-
-        #if brick.collision( ball ) == True:
-        #   score.update(1000)
+        bricks.collision( ball, score )
         
         sleep( 0.001 )
 
