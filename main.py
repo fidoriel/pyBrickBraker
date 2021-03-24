@@ -245,10 +245,14 @@ class Bricks():
                 rowDist += 80
             colDist += 50
 
+      #Vor.: Keine
+      #Effekte: Die Bricks sind gezeichnet
     def draw( self ):
         # brick.draw()
         pass
 
+      #vor.: Keine
+      #Effekte: Der Brick verliert ein Leben wenn der Ball ihn berührt.
     def collision( self ):
         pass
 
