@@ -235,21 +235,25 @@ class Score(turtle.Turtle): #Geerbt von Turtle
     #Effekte: Fügt mehrere Bricks ein.
 class Bricks():
     def __init__( self, rows, cols ):
-        self.bricksList = [ [ ] for _ in rows ]
+        self.bricksList = [ [ ] for _ in range( rows ) ]
 
-        rowDist = 20
-        colDist = 20
-        for col in range( cols ):
-            for row in range( rows ):
-                self.bricksList.append( Brick( colDist, rowDist ) )
-                rowDist += 80
-            colDist += 50
+        x = -220
+        for row in range( rows ):
+            y = 220
+            for col in range( cols ):
+                self.bricksList[ row ].append( Brick( x, y ) )
+                y -= 80
+            x += 100
+        
+        self.draw()
 
       #Vor.: Keine
       #Effekte: Die Bricks sind gezeichnet
     def draw( self ):
-        # brick.draw()
-        pass
+
+        for row in self.bricksList:
+            for brick in row:
+                brick.draw()
 
       #vor.: Keine
       #Effekte: Der Brick verliert ein Leben wenn der Ball ihn berührt.
@@ -281,10 +285,7 @@ def main():
     #field.onkey( platform.moveR, "RIGHT" )
     field.tracer( 0 )
 
-    # brickXcount = 4
-    # brickYcount = 3
-
-    # bricks = [ [ None for x in range( brickXcount ) ] for y in range( brickYcount ) ]
+    bricks = Bricks( 4, 3 )
     
     score = Score(185)
     score.draw()
@@ -295,8 +296,8 @@ def main():
         platform.collision( ball )
         border.collision( ball )
 
-        if brick.collision( ball ) == True:
-            score.update(1000)
+        #if brick.collision( ball ) == True:
+        #   score.update(1000)
         
         sleep( 0.001 )
 
