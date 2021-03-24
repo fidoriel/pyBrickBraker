@@ -230,7 +230,9 @@ class Score(turtle.Turtle): #Geerbt von Turtle
         self.clear()
         self.score += points
         self.draw()
-    
+
+    #Vor.: keine
+    #Effekte: Fügt mehrere Bricks ein.
 class Bricks():
     def __init__( self, rows, cols ):
         self.bricksList = [ [ ] for _ in rows ]
