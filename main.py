@@ -248,11 +248,15 @@ class Bricks():
         
         self.draw()
 
+    # Vor.: Keine
+    # Effekte: Die Bricks sind gezeichnet
     def draw( self ):
         for row in self.bricksList:
             for brick in row:
                 brick.draw()
 
+    # vor.: Keine
+    # Effekte: Der Brick verliert ein Leben wenn der Ball ihn berührt.
     def collision( self, ball, score ):
         for row in self.bricksList:
             for brick in row:
