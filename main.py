@@ -230,6 +230,25 @@ class Score(turtle.Turtle): #Geerbt von Turtle
         self.clear()
         self.score += points
         self.draw()
+    
+class Bricks():
+    def __init__( self, rows, cols ):
+        self.bricksList = [ [ ] for _ in rows ]
+
+        rowDist = 20
+        colDist = 20
+        for col in range( cols ):
+            for row in range( rows ):
+                self.bricksList.append( Brick( colDist, rowDist ) )
+                rowDist += 80
+            colDist += 50
+
+    def draw( self ):
+        # brick.draw()
+        pass
+
+    def collision( self ):
+        pass
 
 def main():
     #Bildschirm
@@ -260,13 +279,6 @@ def main():
     # brickYcount = 3
 
     # bricks = [ [ None for x in range( brickXcount ) ] for y in range( brickYcount ) ]
-
-    # for y in range( brickXcount ):
-    #     for x in range( brickYcount ):
-    #         brick = 
-
-    brick = Brick( 0, 0 )
-    brick.draw()
     
     score = Score(185)
     score.draw()
