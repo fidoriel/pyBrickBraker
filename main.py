@@ -3,7 +3,7 @@
 import turtle
 import random
 import math
-from time import sleep
+from time import sleep, time
 debug = True
 
 #-----------------------class Ball------------------------
@@ -37,18 +37,19 @@ class Brick(turtle.Turtle): #Geerbt von Turtle
         self.hideturtle()
         self.penup()
         self.speed(0)
-        self.color("white")
 
-        self.healthpoints = 1
+        self.healthpoints = 4
+        self.colorPoints = { 4: "white", 3: "green", 2: "yellow", 1: "red" }
+        self.lastCollision = time() * 10000
 
         self.position = [ x, y ]
         # Breite x Laenge
         self.size = [ 60, 30 ]
-        self.isDestroyed = False
 
     #Vor.: keine
     #Effekte: Der Brick ist an der Position self.position gezeichent.
     def draw( self ):
+        self.color( self.colorPoints[ self.healthpoints ] )
         if debug: print( self.position[ 0 ] )
         self.goto( self.position[ 0 ], self.position[ 1 ] )
         self.pendown()
@@ -66,22 +67,31 @@ class Brick(turtle.Turtle): #Geerbt von Turtle
     def collision( self, ball ):
         #stretch_wid, stretch_len, outlinewidth = ball.turtlesize()
         dist = 10 #* stretch_len
-        if not self.isDestroyed:
-            if self.ycor() >=  ( ball.ycor() - dist ) >= ( self.ycor() - self.size[ 1 ] ) or self.ycor() >=  ( ball.ycor() + dist ) >= ( self.ycor() - self.size[ 1 ] ):
-                if self.xcor() <= ( ball.xcor() - dist ) <= ( self.xcor() + self.size[ 0 ] ) or self.xcor() <= ( ball.xcor() + dist ) <= ( self.xcor() + self.size[ 0 ] ): 
+        #print( time() * 1000 )
+        if time() * 10000 - self.lastCollision > 80:
+            if self.healthpoints != 0:
+                if self.ycor() >=  ( ball.ycor() - dist ) >= ( self.ycor() - self.size[ 1 ] ) or self.ycor() >=  ( ball.ycor() + dist ) >= ( self.ycor() - self.size[ 1 ] ):
+                    if self.xcor() <= ( ball.xcor() - dist ) <= ( self.xcor() + self.size[ 0 ] ) or self.xcor() <= ( ball.xcor() + dist ) <= ( self.xcor() + self.size[ 0 ] ): 
 
-                    if debug:
-                        print( "collision" )
-                        print( ball.xcor(), ball.ycor() )
-                       # print( ball.shapesize() )
+                        if debug:
+                            print( "collision" )
+                            print( ball.xcor(), ball.ycor() )
+                        # print( ball.shapesize() )
 
-                    ball.objTouch()
-                    self.healthpoints -= 1
-                    if debug: print( self.healthpoints )
-                    if not self.healthpoints:
-                        self.clear()
-                        self.isDestroyed = True
-                        return True
+                        ball.objTouch()
+                        self.healthpoints -= 1
+
+                        if debug: print( self.healthpoints )
+
+                        if not self.healthpoints:
+                            self.clear()
+                            return True
+
+                        else:
+                            self.draw()
+                            return True
+        
+        self.lastCollision = time() * 10000
         return False
 
 #-----------------------class Border------------------------
