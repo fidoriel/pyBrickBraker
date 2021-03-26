@@ -15,7 +15,7 @@ class Ball(turtle.Turtle): #Geerbt von Ball
         self.speed(1)
         self.color("white")
         self.shape("circle")
-        self.speed = 3 #zusätzliches Attribut
+        self.speed = 1 #zusätzliches Attribut
         self.goto( 0, 100 )
         self.setheading(random.randint(0,360))
 
@@ -67,7 +67,7 @@ class Brick(turtle.Turtle): #Geerbt von Turtle
         #stretch_wid, stretch_len, outlinewidth = ball.turtlesize()
         dist = 10 #* stretch_len
         if not self.isDestroyed:
-            if self.ycor() <=  ( ball.ycor() - dist ) <= ( self.ycor() + self.size[ 1 ] ) or self.ycor() <=  ( ball.ycor() + dist ) <= ( self.ycor() + self.size[ 1 ] ):
+            if self.ycor() >=  ( ball.ycor() - dist ) >= ( self.ycor() - self.size[ 1 ] ) or self.ycor() >=  ( ball.ycor() + dist ) >= ( self.ycor() - self.size[ 1 ] ):
                 if self.xcor() <= ( ball.xcor() - dist ) <= ( self.xcor() + self.size[ 0 ] ) or self.xcor() <= ( ball.xcor() + dist ) <= ( self.xcor() + self.size[ 0 ] ): 
 
                     if debug:
@@ -115,7 +115,7 @@ class Border(turtle.Turtle): #Geerbt von Turtle
     def collision( self, ball ):
         #stretch_wid, stretch_len, outlinewidth = ball.turtlesize()
         dist = 10# * stretch_len
-        if ball.ycor() <= self.bottomBorder + 30:
+        if ball.ycor() <= self.bottomBorder:
             if debug: print( "fallout" )
             ball.goto( 0, 0 )
         
@@ -135,14 +135,14 @@ class Platform( turtle.Turtle ): #Geerbt von Turtle
         self.hideturtle()
 
         self.isFrozen = False
-        self.width = 100
+        self.width = 120
 
-        self.position = [ self.width/-2, -200 ]
+        self.position = [ self.width/-2, ( -borders + 10 ) ]
         # border L and R
-        self.maxLeft = borders * -1
+        self.maxLeft = -borders
         self.maxRight = borders
         # speed
-        self.sensitivity = 50
+        self.sensitivity = self.width/2
         self.speed(0)
 
     #Vor.: Keine
