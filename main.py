@@ -15,7 +15,7 @@ class Ball(turtle.Turtle): #Geerbt von Ball
         self.speed(1)
         self.color("white")
         self.shape("circle")
-        self.speed = 1 #zusätzliches Attribut
+        self.speed = 5 #zusätzliches Attribut
         self.goto( 0, 100 )
         self.setheading(random.randint(0,360))
 
@@ -68,7 +68,7 @@ class Brick(turtle.Turtle): #Geerbt von Turtle
         #stretch_wid, stretch_len, outlinewidth = ball.turtlesize()
         dist = 10 #* stretch_len
         #print( time() * 1000 )
-        if time() * 10000 - self.lastCollision > 80:
+        if time() * 10000 - self.lastCollision > 100:
             if self.healthpoints != 0:
                 if self.ycor() >=  ( ball.ycor() - dist ) >= ( self.ycor() - self.size[ 1 ] ) or self.ycor() >=  ( ball.ycor() + dist ) >= ( self.ycor() - self.size[ 1 ] ):
                     if self.xcor() <= ( ball.xcor() - dist ) <= ( self.xcor() + self.size[ 0 ] ) or self.xcor() <= ( ball.xcor() + dist ) <= ( self.xcor() + self.size[ 0 ] ): 
@@ -309,8 +309,11 @@ def main():
         platform.collision( ball )
         border.collision( ball )
         bricks.collision( ball, score )
+
+        # if score.score >= 2400:
+        #     break
         
-        sleep( 0.001 )
+        sleep( 0.01 )
 
   
 if __name__ == "__main__":
